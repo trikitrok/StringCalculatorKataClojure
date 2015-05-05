@@ -30,21 +30,18 @@
         (concat default-delimiters
                 (extract-delimiters delimiters-str))))))
 
-(defn- extract-delimiters-and-numbers [input]
+(defn- numbers-and-delimiters-pattern [input]
   (let [delimiters-and-numbers (get-matches #"//(.+)\n(.*)" input)]
-    (if (empty? delimiters-and-numbers)
-      ["" input]
-      delimiters-and-numbers)))
+      [(or (second delimiters-and-numbers) input)
+       (create-delimiters-pattern
+         (or (first delimiters-and-numbers) ""))]))
 
 (defn- extract-nums-str [input-str]
-  (let
-    [[delimiters-str nums-str] (extract-delimiters-and-numbers input-str)]
-    (clojure.string/split
-      nums-str
-      (create-delimiters-pattern delimiters-str))))
+  (apply clojure.string/split
+         (numbers-and-delimiters-pattern input-str)))
 
 (defn parse [input-str]
-  (if (empty? input-str)
+  (if (clojure.string/blank? input-str)
     [0]
     (map #(Integer/parseInt %)
          (extract-nums-str input-str))))

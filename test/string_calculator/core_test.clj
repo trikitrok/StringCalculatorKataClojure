@@ -32,4 +32,8 @@
 
   (fact
     "It ignores any number greater than 1000"
-    (add "4,5,1001,3") => 12))
+    (add "4,5,1001,3") => 12)
+
+  (fact
+    "It can use delimiters of any length"
+    (add "//[***]\n1***2***3") => 6))

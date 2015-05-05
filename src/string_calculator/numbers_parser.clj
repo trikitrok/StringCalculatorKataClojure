@@ -11,12 +11,16 @@
   (reduce str (map #(get escaped-chars-by-matachar % %)
                    delimiters-str)))
 
-(def ^:private get-matches (partial drop 1))
+(defn- get-matches [pattern string]
+  (if-let [delimiters (re-seq pattern string)]
+    (mapcat (partial drop 1) delimiters)
+    []))
 
 (defn- extract-delimiters [delimiters-str]
-  (if-let [delimiters (re-seq #"\[(.*?)\]" delimiters-str)]
-    (mapcat get-matches delimiters)
-    delimiters-str))
+  (let [delimiters (get-matches #"\[(.*?)\]" delimiters-str)]
+    (if (empty? delimiters)
+      delimiters-str
+      delimiters)))
 
 (defn- create-delimiters-pattern [delimiters-str]
   (re-pattern
@@ -26,9 +30,10 @@
                                    (extract-delimiters delimiters-str))))))
 
 (defn- extract-delimiters-and-numbers [input]
-  (if-let [delimiters-and-numbers (re-seq #"//(.+)\n(.*)" input)]
-    (mapcat get-matches delimiters-and-numbers)
-    ["" input]))
+  (let [delimiters-and-numbers (get-matches #"//(.+)\n(.*)" input)]
+    (if (empty? delimiters-and-numbers)
+      ["" input]
+      delimiters-and-numbers)))
 
 (defn- extract-nums-str [input-str]
   (let [[delimiters-str nums-str] (extract-delimiters-and-numbers input-str)]

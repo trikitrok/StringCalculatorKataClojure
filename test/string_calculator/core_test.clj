@@ -6,4 +6,8 @@
   "about string-calculator"
   (fact 
     "It returns 0 for an empty string"
-    (add "") => 0))
+    (add "") => 0)
+
+  (fact
+    "It returns the number itself when the string contains only a number"
+    (add "1") => 1))

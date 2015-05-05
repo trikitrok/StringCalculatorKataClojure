@@ -25,9 +25,19 @@
     (map #(Integer/parseInt %)
          (extract-nums-str input-str))))
 
+(def any-negative?
+  (comp not (partial every? #(>= % 0))))
+
+(defn throw-negative-numbers-exception [numbers]
+  (throw
+    (Exception.
+      (str "Detected negative numbers: "
+           (clojure.string/join ", " (filter neg? numbers))))))
+
+(defn validate-numbers [numbers]
+  (if (any-negative? numbers)
+    (throw-negative-numbers-exception numbers)
+    numbers))
+
 (defn add [input-str]
-  (let [numbers (parse-numbers input-str)]
-    (if (every? #(>= % 0) numbers)
-      (apply + (parse-numbers input-str))
-      (throw (Exception. (str "Detected negative numbers: "
-                            (clojure.string/join ", " (filter neg? numbers))))))))
+  (apply + (validate-numbers (parse-numbers input-str))))

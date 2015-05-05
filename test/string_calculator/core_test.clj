@@ -11,4 +11,8 @@
   (fact
     "It returns the number itself when the string contains only a number"
     (add "1") => 1
-    (add "2") => 2))
+    (add "2") => 2)
+
+  (fact
+    "It adds strings containing several numbers separated by commas"
+    (add "1,2") => 3))

@@ -3,4 +3,6 @@
 (defn add [nums_str]  
   (if (empty? nums_str)
     0
-    (Integer/parseInt nums_str)))
+    (apply +
+           (map #(Integer/parseInt %)
+                (clojure.string/split nums_str #",")))))

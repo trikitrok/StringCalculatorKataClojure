@@ -10,4 +10,5 @@
 
   (fact
     "It returns the number itself when the string contains only a number"
-    (add "1") => 1))
+    (add "1") => 1
+    (add "2") => 2))

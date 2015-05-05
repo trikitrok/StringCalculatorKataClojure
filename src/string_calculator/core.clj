@@ -3,4 +3,4 @@
 (defn add [nums_str]  
   (if (empty? nums_str)
     0
-    1))
+    (Integer/parseInt nums_str)))

@@ -15,4 +15,5 @@
 
   (fact
     "It adds strings containing several numbers separated by commas"
-    (add "1,2") => 3))
+    (add "1,2") => 3
+    (add "1,2,3") => 6))

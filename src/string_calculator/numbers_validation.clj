@@ -1,9 +1,9 @@
 (ns string-calculator.numbers-validation)
 
-(def any-negative?
+(def ^:private any-negative?
   (partial not-every? #(>= % 0)))
 
-(defn throw-negative-numbers-exception [numbers]
+(defn- throw-negative-numbers-exception [numbers]
   (throw
     (Exception.
       (str "Detected negative numbers: "

@@ -19,7 +19,7 @@
       nums-str
       (create-delimiters-pattern given-delimiters))))
 
-(defn parse-numbers [input-str]
+(defn parse [input-str]
   (if (empty? input-str)
     [0]
     (map #(Integer/parseInt %)
@@ -34,13 +34,20 @@
       (str "Detected negative numbers: "
            (clojure.string/join ", " (filter neg? numbers))))))
 
-(defn validate-numbers [numbers]
+(defn validate [numbers]
   (if (any-negative? numbers)
     (throw-negative-numbers-exception numbers)
     numbers))
 
-(defn remove-too-big [numbers]
+(defn remove-too-big-numbers [numbers]
   (remove #(> % 1000) numbers))
 
+(def sum (partial apply +))
+
 (defn add [input-str]
-  (apply + (remove-too-big (validate-numbers (parse-numbers input-str)))))
+  (->
+    input-str
+    parse
+    validate
+    remove-too-big-numbers
+    sum))

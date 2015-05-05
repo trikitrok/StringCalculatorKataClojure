@@ -26,4 +26,8 @@
          (extract-nums-str input-str))))
 
 (defn add [input-str]
-  (apply + (parse-numbers input-str)))
+  (let [numbers (parse-numbers input-str)]
+    (if (every? #(>= % 0) numbers)
+      (apply + (parse-numbers input-str))
+      (throw (Exception. (str "Detected negative numbers: "
+                            (clojure.string/join ", " (filter neg? numbers))))))))

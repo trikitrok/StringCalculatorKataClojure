@@ -24,4 +24,8 @@
 
   (fact
     "It can also use any given delimiter"
-    (add "//;\n1;2,3") => 6))
+    (add "//;\n1;2,3") => 6)
+
+  (fact
+    "It throws and exception when trying to add negative numbers"
+    (add "1,-2,3,-4") => (throws Exception "Detected negative numbers: -2, -4")))

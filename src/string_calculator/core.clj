@@ -1,6 +1,6 @@
 (ns string-calculator.core)
 
-(def default-delimiters ["," "\\n"])
+(def default-delimiters ["," "\n"])
 
 (def regex-char-esc-smap
   (let [esc-chars "()*&^%$#!"]
@@ -15,14 +15,16 @@
     (escape-meta-characters
       (clojure.string/join "|" (concat default-delimiters given-delimiters)))))
 
+(def get-matches (partial drop 1))
+
 (defn extract-delimiters-and-numbers [input]
-  (if-let [delimiters-and-numbers (first (re-seq #"//(.+)\n(.*)" input))]
-    (drop 1 delimiters-and-numbers)
+  (if-let [delimiters-and-numbers (re-seq #"//(.+)\n(.*)" input)]
+    (mapcat get-matches delimiters-and-numbers)
     ["" input]))
 
 (defn extract-delimiters [delimiters-str]
   (if-let [delimiters (re-seq #"\[(.*?)\]" delimiters-str)]
-    (map #(first (drop 1 %)) delimiters)
+    (mapcat get-matches delimiters)
     delimiters-str))
 
 (defn extract-nums-str [input-str]

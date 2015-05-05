@@ -1,19 +1,6 @@
 (ns string-calculator.core
-  (:require [string-calculator.numbers-parser :as numbers-parser]))
-
-(def any-negative?
-  (partial not-every? #(>= % 0)))
-
-(defn throw-negative-numbers-exception [numbers]
-  (throw
-    (Exception.
-      (str "Detected negative numbers: "
-           (clojure.string/join ", " (filter neg? numbers))))))
-
-(defn validate [numbers]
-  (if (any-negative? numbers)
-    (throw-negative-numbers-exception numbers)
-    numbers))
+  (:require [string-calculator.numbers-parser :as numbers-parser]
+            [string-calculator.numbers-validation :as numbers-validation]))
 
 (defn remove-too-big-numbers [numbers]
   (remove #(> % 1000) numbers))
@@ -24,6 +11,6 @@
   (->
     input-str
     numbers-parser/parse
-    validate
+    numbers-validation/validate
     remove-too-big-numbers
     sum))

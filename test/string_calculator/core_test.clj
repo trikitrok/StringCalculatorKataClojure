@@ -36,4 +36,8 @@
 
   (fact
     "It can use delimiters of any length"
-    (add "//[***]\n1***2***3") => 6))
+    (add "//[***]\n1***2***3") => 6)
+
+  (fact
+    "It can use multiple delimiters of any length"
+    (add "//[***][%%]\n1***2%%3,4") => 10))

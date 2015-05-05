@@ -21,8 +21,8 @@
     ["" input]))
 
 (defn extract-delimiters [delimiters-str]
-  (if-let [delimiters (re-seq #"\[(.+)\]" delimiters-str)]
-    (drop 1 (first delimiters))
+  (if-let [delimiters (re-seq #"\[(.*?)\]" delimiters-str)]
+    (map #(first (drop 1 %)) delimiters)
     delimiters-str))
 
 (defn extract-nums-str [input-str]

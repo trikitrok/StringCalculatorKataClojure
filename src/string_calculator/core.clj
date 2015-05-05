@@ -3,7 +3,7 @@
             [string-calculator.numbers-validation :as numbers-validation]
             [string-calculator.numbers-filter :as numbers-filter]))
 
-(def sum (partial apply +))
+(def ^:private sum (partial apply +))
 
 (defn add [input-str]
   (->

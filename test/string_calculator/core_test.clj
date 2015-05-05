@@ -20,4 +20,8 @@
 
   (fact
     "It adds numbers separated by new lines and/or commas"
-    (add "1\n2,3")))
+    (add "1\n2,3") => 6)
+
+  (fact
+    "It can also use any given delimiter"
+    (add "//;\n1;2,3") => 6))

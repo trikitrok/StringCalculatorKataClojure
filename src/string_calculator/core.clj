@@ -26,7 +26,7 @@
          (extract-nums-str input-str))))
 
 (def any-negative?
-  (comp not (partial every? #(>= % 0))))
+  (partial not-every? #(>= % 0)))
 
 (defn throw-negative-numbers-exception [numbers]
   (throw

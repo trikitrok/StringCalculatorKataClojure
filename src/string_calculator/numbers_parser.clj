@@ -25,9 +25,10 @@
 (defn- create-delimiters-pattern [delimiters-str]
   (re-pattern
     (escape-meta-characters
-      (clojure.string/join "|"
-                           (concat default-delimiters
-                                   (extract-delimiters delimiters-str))))))
+      (clojure.string/join
+        "|"
+        (concat default-delimiters
+                (extract-delimiters delimiters-str))))))
 
 (defn- extract-delimiters-and-numbers [input]
   (let [delimiters-and-numbers (get-matches #"//(.+)\n(.*)" input)]
@@ -36,7 +37,8 @@
       delimiters-and-numbers)))
 
 (defn- extract-nums-str [input-str]
-  (let [[delimiters-str nums-str] (extract-delimiters-and-numbers input-str)]
+  (let
+    [[delimiters-str nums-str] (extract-delimiters-and-numbers input-str)]
     (clojure.string/split
       nums-str
       (create-delimiters-pattern delimiters-str))))

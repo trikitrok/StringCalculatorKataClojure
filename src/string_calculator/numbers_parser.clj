@@ -22,12 +22,12 @@
       delimiters)))
 
 (defn- create-delimiters-pattern [delimiters-str]
-  (re-pattern
-    (escape-meta-characters
-      (string/join
-        "|"
-        (concat default-delimiters
-                (extract-delimiters delimiters-str))))))
+  (->> delimiters-str
+       extract-delimiters
+       (concat default-delimiters)
+       (string/join "|")
+       escape-meta-characters
+       re-pattern))
 
 (defn- numbers-and-delimiters-pattern [input]
   (let [delimiters-and-numbers (get-matches #"//(.+)\n(.*)" input)]

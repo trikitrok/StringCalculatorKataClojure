@@ -1,9 +1,7 @@
 (ns string-calculator.core
   (:require [string-calculator.numbers-parser :as numbers-parser]
-            [string-calculator.numbers-validation :as numbers-validation]))
-
-(defn remove-too-big-numbers [numbers]
-  (remove #(> % 1000) numbers))
+            [string-calculator.numbers-validation :as numbers-validation]
+            [string-calculator.numbers-filter :as numbers-filter]))
 
 (def sum (partial apply +))
 
@@ -12,5 +10,5 @@
     input-str
     numbers-parser/parse
     numbers-validation/validate
-    remove-too-big-numbers
+    numbers-filter/remove-too-big-numbers
     sum))

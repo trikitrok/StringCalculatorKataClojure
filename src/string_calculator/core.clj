@@ -1,8 +1,13 @@
 (ns string-calculator.core)
 
-(defn add [nums_str]  
-  (if (empty? nums_str)
-    0
-    (apply +
-           (map #(Integer/parseInt %)
-                (clojure.string/split nums_str #",")))))
+(defn parse-numbers [nums-str]
+  (clojure.string/split nums-str #","))
+
+(defn extract-numbers [nums-str]
+  (if (empty? nums-str)
+    [0]
+    (map #(Integer/parseInt %)
+         (parse-numbers nums-str))))
+
+(defn add [nums-str]
+  (apply + (extract-numbers nums-str)))

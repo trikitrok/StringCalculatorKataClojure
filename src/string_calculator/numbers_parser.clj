@@ -1,4 +1,5 @@
-(ns string-calculator.numbers-parser)
+(ns string-calculator.numbers-parser
+  (:require [clojure.string :as string]))
 
 (def ^:private default-delimiters ["," "\n"])
 
@@ -25,7 +26,7 @@
 (defn- create-delimiters-pattern [delimiters-str]
   (re-pattern
     (escape-meta-characters
-      (clojure.string/join
+      (string/join
         "|"
         (concat default-delimiters
                 (extract-delimiters delimiters-str))))))
@@ -37,11 +38,11 @@
          (or (first delimiters-and-numbers) ""))]))
 
 (defn- extract-nums-str [input-str]
-  (apply clojure.string/split
+  (apply string/split
          (numbers-and-delimiters-pattern input-str)))
 
 (defn parse [input-str]
-  (if (clojure.string/blank? input-str)
+  (if (string/blank? input-str)
     [0]
     (map #(Integer/parseInt %)
          (extract-nums-str input-str))))

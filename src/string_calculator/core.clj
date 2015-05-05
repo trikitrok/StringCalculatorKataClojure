@@ -6,9 +6,8 @@
 (def ^:private sum (partial apply +))
 
 (defn add [input-str]
-  (->
-    input-str
-    numbers-parser/parse
-    numbers-validation/validate
-    numbers-filter/remove-too-big-numbers
-    sum))
+  (-> input-str
+      numbers-parser/parse
+      numbers-validation/validate
+      numbers-filter/remove-too-big-numbers
+      sum))

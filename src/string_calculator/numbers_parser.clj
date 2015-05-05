@@ -13,9 +13,7 @@
                    delimiters-str)))
 
 (defn- get-matches [pattern string]
-  (if-let [delimiters (re-seq pattern string)]
-    (mapcat (partial drop 1) delimiters)
-    []))
+  (mapcat (partial drop 1) (re-seq pattern string)))
 
 (defn- extract-delimiters [delimiters-str]
   (let [delimiters (get-matches #"\[(.*?)\]" delimiters-str)]
@@ -33,9 +31,9 @@
 
 (defn- numbers-and-delimiters-pattern [input]
   (let [delimiters-and-numbers (get-matches #"//(.+)\n(.*)" input)]
-      [(or (second delimiters-and-numbers) input)
-       (create-delimiters-pattern
-         (or (first delimiters-and-numbers) ""))]))
+    [(or (second delimiters-and-numbers) input)
+     (create-delimiters-pattern
+       (or (first delimiters-and-numbers) ""))]))
 
 (defn- extract-nums-str [input-str]
   (apply string/split

@@ -8,8 +8,7 @@
             (map #(str "\\" %) esc-chars))))
 
 (defn escape-meta-characters [delimiters-str]
-  (reduce str (map #(get string-calculator.core/regex-char-esc-smap % %)
-                   delimiters-str)))
+  (reduce str (map #(get regex-char-esc-smap % %) delimiters-str)))
 
 (defn create-delimiters-pattern [given-delimiters]
   (re-pattern

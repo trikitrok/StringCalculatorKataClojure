@@ -16,4 +16,8 @@
   (fact
     "It adds strings containing several numbers separated by commas"
     (add "1,2") => 3
-    (add "1,2,3") => 6))
+    (add "1,2,3") => 6)
+
+  (fact
+    "It adds numbers separated by new lines and/or commas"
+    (add "1\n2,3")))

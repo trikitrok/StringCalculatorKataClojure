@@ -1,7 +1,7 @@
 (ns string-calculator.core)
 
 (defn parse-numbers [nums-str]
-  (clojure.string/split nums-str #","))
+  (clojure.string/split nums-str #",|\n"))
 
 (defn extract-numbers [nums-str]
   (if (empty? nums-str)

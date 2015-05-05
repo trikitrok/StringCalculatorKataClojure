@@ -3,13 +3,13 @@
 
 (def ^:private default-delimiters ["," "\n"])
 
-(def ^:private escaped-chars-by-matachar
+(def ^:private escaped-chars-by-metachar
   (let [esc-chars "()*&^%$#!"]
     (zipmap esc-chars
             (map #(str "\\" %) esc-chars))))
 
 (defn- escape-meta-characters [delimiters-str]
-  (reduce str (map #(get escaped-chars-by-matachar % %)
+  (reduce str (map #(get escaped-chars-by-metachar % %)
                    delimiters-str)))
 
 (defn- get-matches [pattern string]

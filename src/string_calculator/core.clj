@@ -39,5 +39,8 @@
     (throw-negative-numbers-exception numbers)
     numbers))
 
+(defn remove-too-big [numbers]
+  (remove #(> % 1000) numbers))
+
 (defn add [input-str]
-  (apply + (validate-numbers (parse-numbers input-str))))
+  (apply + (remove-too-big (validate-numbers (parse-numbers input-str)))))

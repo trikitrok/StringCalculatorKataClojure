@@ -28,4 +28,8 @@
 
   (fact
     "It throws and exception when trying to add negative numbers"
-    (add "1,-2,3,-4") => (throws Exception "Detected negative numbers: -2, -4")))
+    (add "1,-2,3,-4") => (throws Exception "Detected negative numbers: -2, -4"))
+
+  (fact
+    "It ignores any number greater than 1000"
+    (add "4,5,1001,3") => 12))

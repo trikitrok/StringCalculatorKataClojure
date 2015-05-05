@@ -2,9 +2,10 @@
   (:use midje.sweet)
   (:use [string-calculator.core]))
 
-(facts 
+(facts
   "about string-calculator"
-  (fact 
+
+  (fact
     "It returns 0 for an empty string"
     (add "") => 0)
 
